@@ -1,0 +1,13 @@
+Quality First Person Controller v2
+Zakarya; MIT; 2024-07-16
+Actually good first person controller for the Godot Engine. MIT License (credit Colormatic Studios
+
+https://godotengine.org/asset-library/asset/2418
+
+Dialogic Godot
+https://github.com/dialogic-godot/dialogic
+
+Terrain3D
+https://github.com/TokisanGames/Terrain3D
+
+https://github.com/nathanhoad/godot_dialogue_manager/blob/main/docs/FAQ.md
