@@ -4,11 +4,13 @@
 [ext_resource type="Resource" uid="uid://dqwu37bwa3qse" path="res://dialogue/testdialouge.dialogue" id="2_n63t3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3gkuf"]
+size = Vector3(2.47009, 1, 2.57222)
 
-[node name="TalkableNpc" type="Node3D"]
+[node name="TalkableNpc" type="Node3D" node_paths=PackedStringArray("InteractableLabel")]
 script = ExtResource("1_cjfuw")
 dialogue = ExtResource("2_n63t3")
 dialogueStart = "start"
+InteractableLabel = NodePath("Label3D")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 
@@ -18,4 +20,13 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0464478, 0, -0.957704)
 shape = SubResource("BoxShape3D_3gkuf")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.737537, 0)
+visible = false
+text = "Press E to talk to me!"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

@@ -9,8 +9,10 @@ public partial class TalkableNPC : Node
 	Resource dialogue;
 	[Export]
 	String dialogueStart;
-    
-	// Called when the node enters the scene tree for the first time.
+    [Export]
+    Label3D InteractableLabel;
+
+    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
 	}
@@ -25,12 +27,21 @@ public partial class TalkableNPC : Node
         DialogueManager.ShowExampleDialogueBalloon(dialogue, "start");
     }
 
-    private void _OnAreaEntered(Node3D body)
+    private void _on_area_3d_body_entered(Node3D body)
 	{
-        GD.Print("Holy Shit!!! Entered");
         if (body.IsInGroup("Player"))
 		{
-			GD.Print("Holy Shit!!! ThE Player");
+			InteractableLabel.Visible = true;
 		}
 	}
-}
+
+	private void _on_area_3d_body_exited(Node3D body)
+	{
+        if (body.IsInGroup("Player"))
+        {
+            InteractableLabel.Visible = false;
+
+        }
+    }
+
+ }

@@ -100,6 +100,8 @@ public partial class character : CharacterBody3D
 	[Export]
 	Area3D InteractableFinder;
 
+	TalkableNPC nearbyNPC;
+
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
@@ -370,8 +372,9 @@ public partial class character : CharacterBody3D
 		DEBUG_PANEL.AddProperty("state", $"{state}" + (!IsOnFloor() ? " in the air" : ""), 4) ;
 		if (Input.IsActionJustPressed(PAUSE))
 		{
-			Input.MouseMode = (Input.MouseMode == Input.MouseModeEnum.Captured) ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured ;
-		}
+			FreezeAndMouseUsable();
+
+        }
 		if (Input.IsActionJustPressed(INTERACT))
 		{
 			attemptInteract();
@@ -392,9 +395,27 @@ public partial class character : CharacterBody3D
 
 	public void attemptInteract()
 	{
-		if (InteractableFinder.GetOverlappingAreas() != null)
+		if (nearbyNPC != null)
 		{
-			(InteractableFinder.GetOverlappingAreas()[0].GetParent() as TalkableNPC).speakTo();
-        }
+			nearbyNPC.speakTo();
+		}
+	}
+
+	public void FreezeAndMouseUsable()
+	{
+        Input.MouseMode = (Input.MouseMode == Input.MouseModeEnum.Captured) ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+    }
+
+	public void _on_interactable_finder_area_entered (Node3D body)
+	{
+		if (body.GetParent() as TalkableNPC != null)
+		{
+			nearbyNPC = body.GetParent() as TalkableNPC;
+		}
+	}
+
+    public void _on_interactable_finder_area_exited(Node3D body)
+	{
+		nearbyNPC = null;
 	}
 }

@@ -385,7 +385,7 @@ MarginContainer/constants/margin_top = 10
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p222u"]
 
-[node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "CEILING_DETECTION", "InteractableFinder")]
+[node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "CEILING_DETECTION", "InteractableFinder") groups=["Player"]]
 script = ExtResource("1_urq53")
 defaultReticle = "res://addons/fpc/reticles/reticle_1.tscn"
 HEAD = NodePath("Head")
@@ -462,10 +462,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_k4wwl")
 target_position = Vector3(0, 0.5, 0)
 
-[node name="InteractableFinder" type="Area3D" parent="." groups=["Player"]]
+[node name="InteractableFinder" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableFinder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.673481, -0.96958)
 shape = SubResource("BoxShape3D_p222u")
+
+[connection signal="area_entered" from="InteractableFinder" to="." method="_on_interactable_finder_area_entered"]
+[connection signal="area_exited" from="InteractableFinder" to="." method="_on_interactable_finder_area_exited"]

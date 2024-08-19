@@ -2,6 +2,17 @@ Quality First Person Controller v2
 Zakarya; MIT; 2024-07-16
 Actually good first person controller for the Godot Engine. MIT License (credit Colormatic Studios
 
+ Character Controller C#'s icon
+Character Controller C# 2.1.6 Scripts 4.1 Community
+
+Submitted by user expressobits; MIT; 2023-09-21
+
+Modular Character Controller for Godot 4.
+Includes FPS version with headbob and camera movement.
+(Walk, Crouch, Sprint, Swim and Fly Mode).
+C# Base on https://godotengine.org/asset-library/asset/1567
+
+
 https://godotengine.org/asset-library/asset/2418
 
 Dialogic Godot
