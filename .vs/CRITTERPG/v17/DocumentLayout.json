@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "D:\\Documents\\CritterPG\\critterpg\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E37FCAB8-278F-4DE8-B589-0216C4695142}|CritterPG.csproj|d:\\documents\\critterpg\\critterpg\\scripts\\testscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E37FCAB8-278F-4DE8-B589-0216C4695142}|CritterPG.csproj|solutionrelative:scripts\\testscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E37FCAB8-278F-4DE8-B589-0216C4695142}|CritterPG.csproj|d:\\documents\\critterpg\\critterpg\\scripts\\talkablenpc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E37FCAB8-278F-4DE8-B589-0216C4695142}|CritterPG.csproj|solutionrelative:scripts\\talkablenpc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Documents\\CritterPG\\critterpg\\addons\\fpc\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:addons\\fpc\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E37FCAB8-278F-4DE8-B589-0216C4695142}|CritterPG.csproj|d:\\documents\\critterpg\\critterpg\\addons\\dialogue_manager\\dialoguemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E37FCAB8-278F-4DE8-B589-0216C4695142}|CritterPG.csproj|solutionrelative:addons\\dialogue_manager\\dialoguemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TestScript.cs",
-              "DocumentMoniker": "D:\\Documents\\CritterPG\\critterpg\\scripts\\TestScript.cs",
-              "RelativeDocumentMoniker": "scripts\\TestScript.cs",
-              "ToolTip": "D:\\Documents\\CritterPG\\critterpg\\scripts\\TestScript.cs",
-              "RelativeToolTip": "scripts\\TestScript.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 2,
+              "Title": "DialogueManager.cs",
+              "DocumentMoniker": "D:\\Documents\\CritterPG\\critterpg\\addons\\dialogue_manager\\DialogueManager.cs",
+              "RelativeDocumentMoniker": "addons\\dialogue_manager\\DialogueManager.cs",
+              "ToolTip": "D:\\Documents\\CritterPG\\critterpg\\addons\\dialogue_manager\\DialogueManager.cs",
+              "RelativeToolTip": "addons\\dialogue_manager\\DialogueManager.cs",
+              "ViewState": "AQIAAG8AAAAAAAAAAAAlwHwAAABWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-18T17:34:58.513Z",
+              "WhenOpened": "2024-08-18T23:23:52.326Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TalkableNPC.cs",
+              "DocumentMoniker": "D:\\Documents\\CritterPG\\critterpg\\scripts\\TalkableNPC.cs",
+              "RelativeDocumentMoniker": "scripts\\TalkableNPC.cs",
+              "ToolTip": "D:\\Documents\\CritterPG\\critterpg\\scripts\\TalkableNPC.cs",
+              "RelativeToolTip": "scripts\\TalkableNPC.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAABoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-18T23:22:34.669Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "character.cs",
+              "DocumentMoniker": "D:\\Documents\\CritterPG\\critterpg\\addons\\fpc\\character.cs",
+              "RelativeDocumentMoniker": "addons\\fpc\\character.cs",
+              "ToolTip": "D:\\Documents\\CritterPG\\critterpg\\addons\\fpc\\character.cs",
+              "RelativeToolTip": "addons\\fpc\\character.cs",
+              "ViewState": "AQIAAH0BAAAAAAAAAAAQwI4BAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-18T18:12:09.393Z",
               "EditorCaption": ""
             }
           ]

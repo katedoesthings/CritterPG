@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://6j6hnk2g546s"]
+[gd_scene load_steps=7 format=3 uid="uid://6j6hnk2g546s"]
 
-[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="1_2horp"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="1_33gwy"]
+[ext_resource type="PackedScene" uid="uid://bm8vgde2tbfkk" path="res://Prefabs/TalkableNPC.tscn" id="2_xwxdg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qekjr"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -21,12 +22,6 @@ tonemap_mode = 2
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gmnbp")
 
-[node name="Character" parent="." instance=ExtResource("1_2horp")]
-LEFT = "leftmove"
-RIGHT = "rightmove"
-FORWARD = "forwardmove"
-BACKWARD = "backmove"
-
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(19.3374, 0, 0, 0, 1, 0, 0, 0, 23.0073, 0, -0.7865, 0)
 
@@ -34,3 +29,8 @@ transform = Transform3D(19.3374, 0, 0, 0, 1, 0, 0, 0, 23.0073, 0, -0.7865, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/StaticBody3D"]
 shape = SubResource("BoxShape3D_dytna")
+
+[node name="Character" parent="." instance=ExtResource("1_33gwy")]
+
+[node name="TalkableNpc" parent="." instance=ExtResource("2_xwxdg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.89342, 0.294899, -7.02344)
