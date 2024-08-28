@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://6j6hnk2g546s"]
+[gd_scene load_steps=8 format=3 uid="uid://6j6hnk2g546s"]
 
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="1_33gwy"]
 [ext_resource type="PackedScene" uid="uid://bm8vgde2tbfkk" path="res://Prefabs/TalkableNPC.tscn" id="2_xwxdg"]
+[ext_resource type="Script" path="res://scripts/ScheduledThing.cs" id="3_r3600"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qekjr"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -34,3 +35,8 @@ shape = SubResource("BoxShape3D_dytna")
 
 [node name="TalkableNpc" parent="." instance=ExtResource("2_xwxdg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.89342, 0.294899, -7.02344)
+
+[node name="Node3D" type="Node3D" parent="." node_paths=PackedStringArray("placesToGo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.78682, 0, -4.64842)
+script = ExtResource("3_r3600")
+placesToGo = []

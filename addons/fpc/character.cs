@@ -157,6 +157,7 @@ public partial class character : CharacterBody3D
 		// gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 		HandleGravityAndJumping(delta) ;
 
+
 		Vector2 inputDir = immobile ? Vector2.Zero : Input.GetVector(LEFT, RIGHT, FORWARD, BACKWARD) ;
 		HandleMovement(delta, inputDir) ;
 		
@@ -404,6 +405,7 @@ public partial class character : CharacterBody3D
 	public void FreezeAndMouseUsable()
 	{
         Input.MouseMode = (Input.MouseMode == Input.MouseModeEnum.Captured) ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+		GD.Print("Get Fucked! Frozen");
     }
 
 	public void _on_interactable_finder_area_entered (Node3D body)
