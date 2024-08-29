@@ -3,7 +3,7 @@ using System;
 using DialogueManagerRuntime;
 using System.IO;
 
-public partial class TalkableNPC : Node
+public partial class TalkableNPC : Node3D
 {
 	[Export]
 	Resource dialogue;

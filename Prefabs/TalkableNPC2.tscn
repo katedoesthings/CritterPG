@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1bxk70ip4ygv"]
+
+[ext_resource type="Script" path="res://scripts/ScheduledThing.cs" id="1_0lise"]
+[ext_resource type="Script" path="res://scripts/TalkableNPC.cs" id="2_ty2fw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_36cc6"]
+size = Vector3(2.47009, 1, 2.57222)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ynttu"]
+size = Vector3(2.47009, 1, 2.57222)
+
+[node name="TalkableNpc2" type="CharacterBody3D" node_paths=PackedStringArray("placesToGo", "NPCNavAgent")]
+script = ExtResource("1_0lise")
+placesToGo = []
+NPCNavAgent = NodePath("NPCNavAgent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0464478, 0, -0.957704)
+shape = SubResource("BoxShape3D_36cc6")
+
+[node name="NPCNavAgent" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+
+[node name="TalkableNPC" type="Node3D" parent="." node_paths=PackedStringArray("InteractableLabel")]
+script = ExtResource("2_ty2fw")
+InteractableLabel = NodePath("Label3D")
+
+[node name="Area3D" type="Area3D" parent="TalkableNPC"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.00621)
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TalkableNPC/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0464478, 0, -0.957704)
+shape = SubResource("BoxShape3D_ynttu")
+
+[node name="Label3D" type="Label3D" parent="TalkableNPC"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.737537, 0)
+visible = false
+text = "Press E to talk to me!"
+
+[connection signal="body_entered" from="TalkableNPC/Area3D" to="TalkableNPC" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="TalkableNPC/Area3D" to="TalkableNPC" method="_on_area_3d_body_exited"]

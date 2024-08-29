@@ -4,7 +4,7 @@
 
 [node name="Schedule" type="Node3D"]
 script = ExtResource("1_xakpb")
-howLongHour = 5.0
+howLongHour = 4.0
 
 [node name="ScheduleTimer" type="Timer" parent="."]
 unique_name_in_owner = true

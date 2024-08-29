@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://6j6hnk2g546s"]
+[gd_scene load_steps=10 format=3 uid="uid://6j6hnk2g546s"]
 
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="1_33gwy"]
-[ext_resource type="PackedScene" uid="uid://bm8vgde2tbfkk" path="res://Prefabs/TalkableNPC.tscn" id="2_xwxdg"]
-[ext_resource type="Script" path="res://scripts/ScheduledThing.cs" id="3_r3600"]
+[ext_resource type="Resource" uid="uid://dqwu37bwa3qse" path="res://dialogue/testdialouge.dialogue" id="3_hosv6"]
+[ext_resource type="Script" path="res://scripts/PlaceToGo.cs" id="3_vsrdm"]
+[ext_resource type="PackedScene" uid="uid://c1bxk70ip4ygv" path="res://Prefabs/TalkableNPC2.tscn" id="5_1ruqw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qekjr"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -16,6 +17,11 @@ background_mode = 2
 sky = SubResource("Sky_3yrx7")
 tonemap_mode = 2
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_yqiyd"]
+vertices = PackedVector3Array(-2.69087, 0.2135, -2.57821, -0.190874, 0.2135, -2.57821, 0.309126, 0.2135, -4.57821, 3.05913, 0.2135, -5.82821, 3.05913, 0.2135, -10.3282, -2.69087, 0.2135, -10.3282, 5.55913, 0.2135, -5.07821, 15.5591, 0.2135, -2.57821, 15.5591, 0.2135, -10.3282, 6.55913, 0.2135, -2.57821, 3.05913, 1.4635, -0.578209, 4.55913, 1.4635, -1.07821, 5.30913, 1.4635, -2.07821, 1.30913, 1.4635, -4.07821, 0.809126, 1.4635, -3.07821, 1.30913, 1.4635, -1.32821, 5.05913, 1.4635, -3.82821, 3.80913, 1.4635, -4.57821, 0.309126, 0.2135, -0.828209, -2.69087, 0.2135, 11.6718, 5.55913, 0.2135, -0.328209, 2.55913, 0.2135, 0.421791, 15.5591, 0.2135, 11.6718)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 2), PackedInt32Array(0, 5, 2), PackedInt32Array(2, 5, 4), PackedInt32Array(3, 4, 6), PackedInt32Array(6, 4, 8), PackedInt32Array(6, 8, 7), PackedInt32Array(7, 9, 6), PackedInt32Array(12, 11, 10), PackedInt32Array(15, 14, 13), PackedInt32Array(16, 12, 17), PackedInt32Array(17, 12, 10), PackedInt32Array(17, 10, 15), PackedInt32Array(17, 15, 13), PackedInt32Array(1, 18, 0), PackedInt32Array(0, 18, 19), PackedInt32Array(20, 9, 7), PackedInt32Array(20, 7, 21), PackedInt32Array(21, 7, 22), PackedInt32Array(21, 22, 19), PackedInt32Array(19, 18, 21)]
+agent_radius = 2.47
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_dytna"]
 
 [node name="TestScene" type="Node3D"]
@@ -23,20 +29,46 @@ tonemap_mode = 2
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_gmnbp")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(19.3374, 0, 0, 0, 1, 0, 0, 0, 23.0073, 0, -0.7865, 0)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="CSGBox3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/StaticBody3D"]
-shape = SubResource("BoxShape3D_dytna")
-
 [node name="Character" parent="." instance=ExtResource("1_33gwy")]
 
-[node name="TalkableNpc" parent="." instance=ExtResource("2_xwxdg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.89342, 0.294899, -7.02344)
+[node name="TestTime1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.74801, 0.341702, -0.920016)
+script = ExtResource("3_vsrdm")
+timeToGoHere = 1.0
+speedToGoHere = 4.0
 
-[node name="Node3D" type="Node3D" parent="." node_paths=PackedStringArray("placesToGo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.78682, 0, -4.64842)
-script = ExtResource("3_r3600")
-placesToGo = []
+[node name="TestTime2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18058, 0.683404, 9.02934)
+script = ExtResource("3_vsrdm")
+timeToGoHere = 4.0
+speedToGoHere = 4.0
+
+[node name="TestTime3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.31678, 1.36681, -0.640438)
+script = ExtResource("3_vsrdm")
+timeToGoHere = 6.0
+speedToGoHere = 4.0
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.47783, 0, -0.675441)
+navigation_mesh = SubResource("NavigationMesh_yqiyd")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(19.3374, 0, 0, 0, 1, 0, 0, 0, 23.0073, 6.47783, -0.7865, 0.675441)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/CSGBox3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/CSGBox3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_dytna")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="NavigationRegion3D"]
+transform = Transform3D(5.54859, 0, 0, 0, 1, 0, 0, 0, 4.87522, 3.10431, 0, -2.68071)
+
+[node name="TalkableNpc2" parent="." node_paths=PackedStringArray("placesToGo") instance=ExtResource("5_1ruqw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.64994, 0.222404, -7.14205)
+placesToGo = [NodePath("../TestTime1"), NodePath("../TestTime2"), NodePath("../TestTime3")]
+
+[node name="TalkableNPC" parent="TalkableNpc2" index="3"]
+dialogue = ExtResource("3_hosv6")
+
+[editable path="TalkableNpc2"]
