@@ -60,6 +60,8 @@ public partial class character : CharacterBody3D
 	String SPRINT = "sprint" ;
     [Export]
     String INTERACT = "interact";
+	[Export]
+	String INVENTORY = "inventory";
 
     [ExportGroup("Feature Settings")]
 	[Export]
@@ -101,6 +103,10 @@ public partial class character : CharacterBody3D
 	Area3D InteractableFinder;
 
 	TalkableNPC nearbyNPC;
+	InventoryItem nearbyItem;
+
+	[Export]
+	InventoryManager inventoryManager;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
@@ -376,7 +382,15 @@ public partial class character : CharacterBody3D
 			FreezeAndMouseUsable();
 
         }
-		if (Input.IsActionJustPressed(INTERACT))
+
+        if (Input.IsActionJustPressed(INVENTORY))
+        {
+            FreezeAndMouseUsable();
+			inventoryManager.ToggleInventory();
+
+        }
+
+        if (Input.IsActionJustPressed(INTERACT))
 		{
 			attemptInteract();
 		}
@@ -400,6 +414,10 @@ public partial class character : CharacterBody3D
 		{
 			nearbyNPC.speakTo();
 		}
+		if (nearbyItem != null)
+		{
+			inventoryManager.AddToInventory(nearbyItem);
+		}
 	}
 
 	public void FreezeAndMouseUsable()
@@ -414,10 +432,21 @@ public partial class character : CharacterBody3D
 		{
 			nearbyNPC = body.GetParent() as TalkableNPC;
 		}
-	}
+        if (body.GetParent() as InventoryItem != null)
+        {
+            nearbyItem= body.GetParent() as InventoryItem;
+        }
+    }
 
     public void _on_interactable_finder_area_exited(Node3D body)
 	{
-		nearbyNPC = null;
-	}
+        if (body.GetParent() as TalkableNPC == nearbyNPC)
+        {
+			nearbyNPC = null;
+        }
+        if (body.GetParent() as InventoryItem == nearbyItem)
+        {
+			nearbyItem = null;
+        }
+    }
 }

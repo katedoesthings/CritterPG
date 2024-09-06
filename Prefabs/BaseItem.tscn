@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy30kxkkcxa07"]
+
+[ext_resource type="Script" path="res://scripts/InventoryItem.cs" id="1_0xi21"]
+[ext_resource type="Texture2D" uid="uid://c4ncgcx2jiulw" path="res://placeholder/apple.jpg" id="1_bxsli"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pwjwc"]
+size = Vector3(2.47009, 1, 2.57222)
+
+[node name="BaseItem" type="Node3D" node_paths=PackedStringArray("getLabel")]
+script = ExtResource("1_0xi21")
+name = "Normal Apple"
+desc = "It's an apple. I promise it's normal."
+icon = ExtResource("1_bxsli")
+disappearOnPickedUp = true
+getLabel = NodePath("Label3D")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.001
+billboard = 2
+texture = ExtResource("1_bxsli")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.00621)
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0464478, 0, -0.957704)
+shape = SubResource("BoxShape3D_pwjwc")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.737537, 0)
+visible = false
+billboard = 2
+text = "[E] Pick Up"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

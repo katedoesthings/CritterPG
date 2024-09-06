@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=22 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.cs" id="1_urq53"]
 [ext_resource type="Script" path="res://addons/fpc/DebugPanel.cs" id="2_eciry"]
+[ext_resource type="Script" path="res://scripts/InventoryManager.cs" id="4_kfrai"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
 albedo_color = Color(0.909804, 0.596078, 0, 1)
@@ -385,7 +386,7 @@ MarginContainer/constants/margin_top = 10
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p222u"]
 
-[node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "CEILING_DETECTION", "InteractableFinder") groups=["Player"]]
+[node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "CEILING_DETECTION", "InteractableFinder", "inventoryManager") groups=["Player"]]
 script = ExtResource("1_urq53")
 defaultReticle = "res://addons/fpc/reticles/reticle_1.tscn"
 HEAD = NodePath("Head")
@@ -401,6 +402,7 @@ FORWARD = "forwardmove"
 BACKWARD = "backmove"
 PAUSE = "pause"
 InteractableFinder = NodePath("InteractableFinder")
+inventoryManager = NodePath("InventoryManager")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -457,6 +459,38 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/DebugPanel/MarginContainer"]
 layout_mode = 2
 
+[node name="InventoryPanel" type="Panel" parent="UserInterface"]
+visible = false
+layout_mode = 0
+offset_left = 238.0
+offset_top = 81.0
+offset_right = 930.0
+offset_bottom = 518.0
+
+[node name="InventoryHeader" type="Label" parent="UserInterface/InventoryPanel"]
+layout_mode = 2
+offset_left = 202.0
+offset_top = 4.0
+offset_right = 483.0
+offset_bottom = 27.0
+text = "Inventory"
+horizontal_alignment = 1
+
+[node name="ItemList" type="ItemList" parent="UserInterface/InventoryPanel"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 68.0
+offset_right = 642.0
+offset_bottom = 402.0
+fixed_icon_size = Vector2i(25, 25)
+
+[node name="ItemDescription" type="RichTextLabel" parent="UserInterface/InventoryPanel"]
+layout_mode = 0
+offset_left = 699.0
+offset_top = 4.0
+offset_right = 903.0
+offset_bottom = 308.0
+
 [node name="CrouchCeilingDetection" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_k4wwl")
@@ -470,5 +504,12 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.673481, -0.96958)
 shape = SubResource("BoxShape3D_p222u")
 
+[node name="InventoryManager" type="Node" parent="." node_paths=PackedStringArray("inventoryPanel", "inventoryList", "itemDescription")]
+script = ExtResource("4_kfrai")
+inventoryPanel = NodePath("../UserInterface/InventoryPanel")
+inventoryList = NodePath("../UserInterface/InventoryPanel/ItemList")
+itemDescription = NodePath("../UserInterface/InventoryPanel/ItemDescription")
+
+[connection signal="item_selected" from="UserInterface/InventoryPanel/ItemList" to="InventoryManager" method="_on_item_list_item_selected"]
 [connection signal="area_entered" from="InteractableFinder" to="." method="_on_interactable_finder_area_entered"]
 [connection signal="area_exited" from="InteractableFinder" to="." method="_on_interactable_finder_area_exited"]

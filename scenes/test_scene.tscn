@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://6j6hnk2g546s"]
+[gd_scene load_steps=11 format=3 uid="uid://6j6hnk2g546s"]
 
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/fpc/character.tscn" id="1_33gwy"]
 [ext_resource type="Resource" uid="uid://dqwu37bwa3qse" path="res://dialogue/testdialouge.dialogue" id="3_hosv6"]
 [ext_resource type="Script" path="res://scripts/PlaceToGo.cs" id="3_vsrdm"]
+[ext_resource type="PackedScene" uid="uid://cy30kxkkcxa07" path="res://Prefabs/BaseItem.tscn" id="5_1pinf"]
 [ext_resource type="PackedScene" uid="uid://c1bxk70ip4ygv" path="res://Prefabs/TalkableNPC2.tscn" id="5_1ruqw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qekjr"]
@@ -63,6 +64,14 @@ shape = SubResource("BoxShape3D_dytna")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="NavigationRegion3D"]
 transform = Transform3D(5.54859, 0, 0, 0, 1, 0, 0, 0, 4.87522, 3.10431, 0, -2.68071)
+
+[node name="BaseItem" parent="." instance=ExtResource("5_1pinf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.200366, 1)
+
+[node name="BaseItem2" parent="." instance=ExtResource("5_1pinf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.75286, 0.199497, 5.00514)
+name = "Evil Apple"
+desc = "This apple is secretly super fucked up."
 
 [node name="TalkableNpc2" parent="." node_paths=PackedStringArray("placesToGo") instance=ExtResource("5_1ruqw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.64994, 0.222404, -7.14205)
