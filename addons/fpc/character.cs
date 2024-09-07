@@ -102,11 +102,18 @@ public partial class character : CharacterBody3D
 	[Export]
 	Area3D InteractableFinder;
 
-	TalkableNPC nearbyNPC;
-	InventoryItem nearbyItem;
+	//TalkableNPC nearbyNPC;
+	//InventoryItem nearbyItem;
+	public Node3D nearbyThing;
 
 	[Export]
 	InventoryManager inventoryManager;
+
+	[Export]
+	CookingManager cookingManager;
+
+	[Export]
+	CookingRecipe testRecipe;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
@@ -410,15 +417,22 @@ public partial class character : CharacterBody3D
 
 	public void attemptInteract()
 	{
-		if (nearbyNPC != null)
+		if (nearbyThing != null)
 		{
-			nearbyNPC.speakTo();
+			if (nearbyThing.GetParent() as TalkableNPC != null)
+			{
+				(nearbyThing.GetParent() as TalkableNPC).speakTo();
+			}
+			if (nearbyThing.GetParent() as InventoryItem != null)
+			{
+				inventoryManager.AddToInventory(nearbyThing.GetParent() as InventoryItem);
+			}
+			if (nearbyThing.GetParent().IsInGroup("CookingStation"))
+			{
+				cookingManager._TimeToCook(testRecipe);
+			}
 		}
-		if (nearbyItem != null)
-		{
-			inventoryManager.AddToInventory(nearbyItem);
-		}
-	}
+    }
 
 	public void FreezeAndMouseUsable()
 	{
@@ -428,7 +442,7 @@ public partial class character : CharacterBody3D
 
 	public void _on_interactable_finder_area_entered (Node3D body)
 	{
-		if (body.GetParent() as TalkableNPC != null)
+		/*if (body.GetParent() as TalkableNPC != null)
 		{
 			nearbyNPC = body.GetParent() as TalkableNPC;
 		}
@@ -436,17 +450,21 @@ public partial class character : CharacterBody3D
         {
             nearbyItem= body.GetParent() as InventoryItem;
         }
+        if (body.IsInGroup("CookingStation"))
+        {
+            InteractableLabel.Visible = false;
+
+        }*/
+		GD.Print("oooh you're near something!");
+		nearbyThing = body;
     }
 
     public void _on_interactable_finder_area_exited(Node3D body)
 	{
-        if (body.GetParent() as TalkableNPC == nearbyNPC)
-        {
-			nearbyNPC = null;
-        }
-        if (body.GetParent() as InventoryItem == nearbyItem)
-        {
-			nearbyItem = null;
+        if (body == nearbyThing)
+		{
+			nearbyThing = null;
+            GD.Print("no longer near something...");
         }
     }
 }

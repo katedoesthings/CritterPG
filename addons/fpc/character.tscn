@@ -1,8 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=24 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.cs" id="1_urq53"]
 [ext_resource type="Script" path="res://addons/fpc/DebugPanel.cs" id="2_eciry"]
+[ext_resource type="Script" path="res://scripts/CookingManager.cs" id="3_02hx0"]
 [ext_resource type="Script" path="res://scripts/InventoryManager.cs" id="4_kfrai"]
+[ext_resource type="PackedScene" uid="uid://h4gi2jpmk3wf" path="res://Prefabs/BaseRecipe.tscn" id="5_0w052"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
 albedo_color = Color(0.909804, 0.596078, 0, 1)
@@ -386,7 +388,7 @@ MarginContainer/constants/margin_top = 10
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p222u"]
 
-[node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "CEILING_DETECTION", "InteractableFinder", "inventoryManager") groups=["Player"]]
+[node name="Character" type="CharacterBody3D" node_paths=PackedStringArray("HEAD", "CAMERA", "HEADBOB_ANIMATION", "JUMP_ANIMATION", "CROUCH_ANIMATION", "COLLISION_MESH", "CEILING_DETECTION", "InteractableFinder", "inventoryManager", "cookingManager", "testRecipe") groups=["Player"]]
 script = ExtResource("1_urq53")
 defaultReticle = "res://addons/fpc/reticles/reticle_1.tscn"
 HEAD = NodePath("Head")
@@ -403,6 +405,8 @@ BACKWARD = "backmove"
 PAUSE = "pause"
 InteractableFinder = NodePath("InteractableFinder")
 inventoryManager = NodePath("InventoryManager")
+cookingManager = NodePath("UserInterface/CookingUI")
+testRecipe = NodePath("BaseRecipe")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -491,6 +495,154 @@ offset_top = 4.0
 offset_right = 903.0
 offset_bottom = 308.0
 
+[node name="CookingUI" type="Control" parent="UserInterface" node_paths=PackedStringArray("cookingTimer", "chopUI", "chopSlider", "spiceUI", "spiceSlider", "bakeUI", "bakeTimer", "chopCountText", "chopPerformanceLabel")]
+visible = false
+anchors_preset = 0
+offset_left = 210.0
+offset_top = 88.0
+offset_right = 986.0
+offset_bottom = 554.0
+script = ExtResource("3_02hx0")
+cookingTimer = NodePath("CookingTimer")
+chopUI = NodePath("ChopUI")
+chopSlider = NodePath("ChopUI/ChopSlider")
+spiceUI = NodePath("SpiceGrindUI")
+spiceSlider = NodePath("SpiceGrindUI/SpiceGrindSlider")
+bakeUI = NodePath("BakeUI")
+bakeTimer = [NodePath("BakeUI/ColorRect2"), NodePath("BakeUI/ColorRect"), NodePath("BakeUI/ColorRect3"), NodePath("BakeUI/ColorRect4"), NodePath("BakeUI/ColorRect5")]
+chopCountText = NodePath("ChopUI/ChopCount")
+chopPerformanceLabel = NodePath("ChopUI/PerformanceLabel")
+
+[node name="ChopUI" type="Control" parent="UserInterface/CookingUI"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="UserInterface/CookingUI/ChopUI"]
+layout_mode = 0
+offset_left = 367.0
+offset_top = 91.0
+offset_right = 407.0
+offset_bottom = 131.0
+color = Color(0.3658, 0.726818, 1.15514e-06, 1)
+
+[node name="ChopSlider" type="HSlider" parent="UserInterface/CookingUI/ChopUI"]
+layout_mode = 2
+offset_left = 127.0
+offset_top = 75.0
+offset_right = 648.0
+offset_bottom = 147.0
+step = 0.1
+
+[node name="ChopLabel" type="RichTextLabel" parent="UserInterface/CookingUI/ChopUI"]
+layout_mode = 0
+offset_left = 347.0
+offset_top = 32.0
+offset_right = 440.0
+offset_bottom = 88.0
+text = "Left click to chop!"
+
+[node name="ChopCount" type="RichTextLabel" parent="UserInterface/CookingUI/ChopUI"]
+layout_mode = 0
+offset_left = 465.0
+offset_top = 34.0
+offset_right = 505.0
+offset_bottom = 74.0
+
+[node name="PerformanceLabel" type="RichTextLabel" parent="UserInterface/CookingUI/ChopUI"]
+layout_mode = 0
+offset_left = 295.0
+offset_top = 151.0
+offset_right = 494.0
+offset_bottom = 250.0
+
+[node name="SpiceGrindUI" type="Control" parent="UserInterface/CookingUI"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="UserInterface/CookingUI/SpiceGrindUI"]
+layout_mode = 0
+offset_left = 694.0
+offset_top = 136.0
+offset_right = 733.0
+offset_bottom = 176.0
+color = Color(0.3658, 0.726818, 1.15514e-06, 1)
+
+[node name="SpiceGrindSlider" type="VSlider" parent="UserInterface/CookingUI/SpiceGrindUI"]
+layout_mode = 0
+offset_left = 697.0
+offset_top = 113.0
+offset_right = 729.0
+offset_bottom = 480.0
+
+[node name="SpiceGrindLabel" type="RichTextLabel" parent="UserInterface/CookingUI/SpiceGrindUI"]
+layout_mode = 0
+offset_left = 694.0
+offset_top = 64.0
+offset_right = 831.0
+offset_bottom = 104.0
+text = "Hold E to Spice!"
+
+[node name="BakeUI" type="Control" parent="UserInterface/CookingUI"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect2" type="ColorRect" parent="UserInterface/CookingUI/BakeUI"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 412.0
+offset_right = 53.0
+offset_bottom = 452.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="UserInterface/CookingUI/BakeUI"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 355.0
+offset_right = 53.0
+offset_bottom = 395.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="UserInterface/CookingUI/BakeUI"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 302.0
+offset_right = 53.0
+offset_bottom = 342.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="UserInterface/CookingUI/BakeUI"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 253.0
+offset_right = 53.0
+offset_bottom = 293.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="UserInterface/CookingUI/BakeUI"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 164.0
+offset_right = 69.0
+offset_bottom = 235.0
+color = Color(0, 0, 0, 1)
+
+[node name="SpiceGrindLabel" type="RichTextLabel" parent="UserInterface/CookingUI/BakeUI"]
+layout_mode = 0
+offset_left = -34.0
+offset_top = 124.0
+offset_right = 243.0
+offset_bottom = 164.0
+text = "Press E to take it out of the oven!"
+
+[node name="CookingTimer" type="Timer" parent="UserInterface/CookingUI"]
+wait_time = 0.05
+
 [node name="CrouchCeilingDetection" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_k4wwl")
@@ -510,6 +662,9 @@ inventoryPanel = NodePath("../UserInterface/InventoryPanel")
 inventoryList = NodePath("../UserInterface/InventoryPanel/ItemList")
 itemDescription = NodePath("../UserInterface/InventoryPanel/ItemDescription")
 
+[node name="BaseRecipe" parent="." instance=ExtResource("5_0w052")]
+
 [connection signal="item_selected" from="UserInterface/InventoryPanel/ItemList" to="InventoryManager" method="_on_item_list_item_selected"]
+[connection signal="timeout" from="UserInterface/CookingUI/CookingTimer" to="UserInterface/CookingUI" method="_on_cooking_timer_timeout"]
 [connection signal="area_entered" from="InteractableFinder" to="." method="_on_interactable_finder_area_entered"]
 [connection signal="area_exited" from="InteractableFinder" to="." method="_on_interactable_finder_area_exited"]

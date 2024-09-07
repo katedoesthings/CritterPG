@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://h4gi2jpmk3wf"]
+
+[ext_resource type="Script" path="res://scripts/CookingRecipe.cs" id="1_7ly5r"]
+
+[node name="BaseRecipe" type="Node"]
+script = ExtResource("1_7ly5r")
+stepsAndOrder = PackedStringArray("chop", "spice")
+numChop = 4.0
+chopTime = 2.0
+spiceTime = 5.0
+bakeTime = 5.0

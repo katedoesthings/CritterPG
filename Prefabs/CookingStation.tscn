@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://duto8yl7snd7w"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_153lk"]
+size = Vector3(2.47009, 1, 2.57222)
+
+[node name="CookingStation" type="Node3D" groups=["CookingStation"]]
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.737537, 0)
+billboard = 2
+text = "[E] Cook!"
+
+[node name="Area3D" type="Area3D" parent="." groups=["CookingStation"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.00621)
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" groups=["CookingStation"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0464478, 0, -0.957704)
+shape = SubResource("BoxShape3D_153lk")
