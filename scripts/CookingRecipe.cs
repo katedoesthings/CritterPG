@@ -10,7 +10,11 @@ public partial class CookingRecipe : Node
     [Export]
     public float chopTime;
     [Export]
-    public float spiceTime;
+    public float numSpice;
+    [Export]
+    public float spiceMultiplier;
+	[Export]
+	public float spiceThreshold;
 	[Export]
 	public float bakeTime;
 	// Called when the node enters the scene tree for the first time.

@@ -4,8 +4,10 @@
 
 [node name="BaseRecipe" type="Node"]
 script = ExtResource("1_7ly5r")
-stepsAndOrder = PackedStringArray("chop", "spice")
+stepsAndOrder = PackedStringArray("chop", "bake", "spice")
 numChop = 4.0
 chopTime = 2.0
-spiceTime = 5.0
+numSpice = 5.0
+spiceMultiplier = 2.5
+spiceThreshold = 90.0
 bakeTime = 5.0

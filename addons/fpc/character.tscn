@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=25 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.cs" id="1_urq53"]
 [ext_resource type="Script" path="res://addons/fpc/DebugPanel.cs" id="2_eciry"]
 [ext_resource type="Script" path="res://scripts/CookingManager.cs" id="3_02hx0"]
 [ext_resource type="Script" path="res://scripts/InventoryManager.cs" id="4_kfrai"]
+[ext_resource type="Texture2D" uid="uid://6856cugjcbnl" path="res://placeholder/greensquare.png" id="4_x226x"]
 [ext_resource type="PackedScene" uid="uid://h4gi2jpmk3wf" path="res://Prefabs/BaseRecipe.tscn" id="5_0w052"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
@@ -495,7 +496,7 @@ offset_top = 4.0
 offset_right = 903.0
 offset_bottom = 308.0
 
-[node name="CookingUI" type="Control" parent="UserInterface" node_paths=PackedStringArray("cookingTimer", "chopUI", "chopSlider", "spiceUI", "spiceSlider", "bakeUI", "bakeTimer", "chopCountText", "chopPerformanceLabel")]
+[node name="CookingUI" type="Control" parent="UserInterface" node_paths=PackedStringArray("cookingTimer", "chopUI", "chopSlider", "spiceUI", "spiceSlider", "bakeUI", "bakeTimer", "chopCountText", "spiceCountText", "chopPerformanceLabel", "spicePerformanceLabel", "spiceThresholdSlider", "bakePerformanceLabel")]
 visible = false
 anchors_preset = 0
 offset_left = 210.0
@@ -511,7 +512,12 @@ spiceSlider = NodePath("SpiceGrindUI/SpiceGrindSlider")
 bakeUI = NodePath("BakeUI")
 bakeTimer = [NodePath("BakeUI/ColorRect2"), NodePath("BakeUI/ColorRect"), NodePath("BakeUI/ColorRect3"), NodePath("BakeUI/ColorRect4"), NodePath("BakeUI/ColorRect5")]
 chopCountText = NodePath("ChopUI/ChopCount")
+spiceCountText = NodePath("SpiceGrindUI/SpiceCount")
 chopPerformanceLabel = NodePath("ChopUI/PerformanceLabel")
+spicePerformanceLabel = NodePath("SpiceGrindUI/PerformanceLabel")
+spiceThresholdSlider = NodePath("SpiceGrindUI/SpiceThresholdSlider")
+bakePerformanceLabel = NodePath("BakeUI/PerformanceLabel")
+transitionTime = 3.0
 
 [node name="ChopUI" type="Control" parent="UserInterface/CookingUI"]
 visible = false
@@ -563,13 +569,15 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ColorRect" type="ColorRect" parent="UserInterface/CookingUI/SpiceGrindUI"]
+[node name="SpiceThresholdSlider" type="VSlider" parent="UserInterface/CookingUI/SpiceGrindUI"]
 layout_mode = 0
-offset_left = 694.0
-offset_top = 136.0
-offset_right = 733.0
-offset_bottom = 176.0
-color = Color(0.3658, 0.726818, 1.15514e-06, 1)
+offset_left = 648.0
+offset_top = 113.0
+offset_right = 776.0
+offset_bottom = 480.0
+theme_override_icons/grabber = ExtResource("4_x226x")
+step = 0.1
+value = 50.0
 
 [node name="SpiceGrindSlider" type="VSlider" parent="UserInterface/CookingUI/SpiceGrindUI"]
 layout_mode = 0
@@ -577,6 +585,7 @@ offset_left = 697.0
 offset_top = 113.0
 offset_right = 729.0
 offset_bottom = 480.0
+step = 0.1
 
 [node name="SpiceGrindLabel" type="RichTextLabel" parent="UserInterface/CookingUI/SpiceGrindUI"]
 layout_mode = 0
@@ -585,6 +594,20 @@ offset_top = 64.0
 offset_right = 831.0
 offset_bottom = 104.0
 text = "Hold E to Spice!"
+
+[node name="PerformanceLabel" type="RichTextLabel" parent="UserInterface/CookingUI/SpiceGrindUI"]
+layout_mode = 0
+offset_left = 453.0
+offset_top = 127.0
+offset_right = 652.0
+offset_bottom = 226.0
+
+[node name="SpiceCount" type="RichTextLabel" parent="UserInterface/CookingUI/SpiceGrindUI"]
+layout_mode = 0
+offset_left = 779.0
+offset_top = 124.0
+offset_right = 819.0
+offset_bottom = 164.0
 
 [node name="BakeUI" type="Control" parent="UserInterface/CookingUI"]
 visible = false
@@ -639,6 +662,13 @@ offset_top = 124.0
 offset_right = 243.0
 offset_bottom = 164.0
 text = "Press E to take it out of the oven!"
+
+[node name="PerformanceLabel" type="RichTextLabel" parent="UserInterface/CookingUI/BakeUI"]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 160.0
+offset_right = 331.0
+offset_bottom = 259.0
 
 [node name="CookingTimer" type="Timer" parent="UserInterface/CookingUI"]
 wait_time = 0.05
