@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://gy7ahq4oxd4k"]
+
+[ext_resource type="Script" path="res://scripts/CookingRecipe.cs" id="1_4iwmt"]
+[ext_resource type="PackedScene" uid="uid://v73i4ksdtt4c" path="res://Items/Food/BakedAppleItem.tscn" id="2_5kkff"]
+
+[node name="BaseRecipe" type="Node"]
+script = ExtResource("1_4iwmt")
+stepsAndOrder = PackedStringArray("chop", "bake", "spice")
+numChop = 2.0
+chopTime = 4.0
+numSpice = 2.0
+spiceMultiplier = 1.0
+spiceThreshold = 50.0
+bakeTime = 7.0
+recipeName = "Baked Apple"
+resultItem = ExtResource("2_5kkff")

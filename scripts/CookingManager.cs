@@ -1,6 +1,8 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
 
 public partial class CookingManager : Control
 {
@@ -31,6 +33,11 @@ public partial class CookingManager : Control
     [Export]
     public RichTextLabel bakePerformanceLabel;
 
+    [Export]
+	public ItemList recipeList;
+
+    public List<CookingRecipe> recipeInventory = new List<CookingRecipe>();
+
     public float curTime;
 
 	public int stepIndex = 0;
@@ -48,7 +55,19 @@ public partial class CookingManager : Control
 
 	private float curTransitionTime;
 
-	public CookingRecipe curRecipe;
+	[Export]
+	public RichTextLabel resultsLabel;
+
+    [Export]
+    public Control resultsParent;
+
+    [Export]
+    InventoryManager inventoryManager;
+
+	[Export]
+	character theCharacter;
+
+    public CookingRecipe curRecipe;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -73,7 +92,22 @@ public partial class CookingManager : Control
 		chopPerformanceLabel.Text = "";
 	}
 
-	public void _TimeToCook(CookingRecipe theRecipe)
+	public void _PickRecipe()
+	{
+        _ClearUI();
+        recipeList.Visible = true;
+        this.Visible = true;
+    }
+
+	private void _on_recipe_list_item_clicked(int index, Vector2 at_position, int mouse_button_index)
+	{
+        CookingRecipe testRecipe = (CookingRecipe)((PackedScene)ItemManager.allRecipes[recipeList.GetItemText(index)]).Instantiate();
+        recipeList.Visible = false;
+        _TimeToCook(testRecipe);
+    }
+
+
+    public void _TimeToCook(CookingRecipe theRecipe)
 	{
 		_FullReset();
 		curRecipe = theRecipe;
@@ -155,14 +189,28 @@ public partial class CookingManager : Control
 
 	public void _Results()
 	{
-		_ClearUI();
+        _ClearUI();
+		this.Visible = true;
+        resultsParent.Visible = true;
+		resultsLabel.Text = "You cooked a " + curRecipe.recipeName +"!";
+        InventoryItem resultItem = (InventoryItem)((PackedScene)curRecipe.resultItem).Instantiate();
+		inventoryManager.AddToInventory(resultItem);
+		resultItem.QueueFree();
 	}
 
-	public void _ClearUI()
+	private void _on_finished_cooking_button_button_down()
+	{
+        theCharacter.FreezeAndMouseUsable();
+		_ClearUI();
+    }
+
+    public void _ClearUI()
 	{
         spiceUI.Visible = false;
         chopUI.Visible = false;
         bakeUI.Visible = false;
+		recipeList.Visible = false;
+		resultsParent.Visible = false;
         this.Visible = false;
     }
 
@@ -186,7 +234,7 @@ public partial class CookingManager : Control
 		}
 		else
 		{
-			_ClearUI();
+			_Results();
 		}
     }
 

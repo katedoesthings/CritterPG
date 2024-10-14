@@ -15,6 +15,7 @@ public partial class InventoryItem : Node3D
 	public bool replenishable;
 	[Export]
 	public Label3D getLabel;
+	public string descriptor;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

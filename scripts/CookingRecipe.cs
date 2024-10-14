@@ -17,6 +17,10 @@ public partial class CookingRecipe : Node
 	public float spiceThreshold;
 	[Export]
 	public float bakeTime;
+	[Export]
+	public string recipeName;
+	[Export]
+	public PackedScene resultItem;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

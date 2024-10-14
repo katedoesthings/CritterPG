@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm8iemkx7omrj"]
+
+[ext_resource type="Script" path="res://scripts/InventoryItem.cs" id="1_rftqi"]
+[ext_resource type="Texture2D" uid="uid://6856cugjcbnl" path="res://placeholder/greensquare.png" id="2_0rg5d"]
+
+[node name="ChungletronItem" type="Node3D"]
+script = ExtResource("1_rftqi")
+name = "Chungletron"
+desc = "the hell is this shit?"
+icon = ExtResource("2_0rg5d")

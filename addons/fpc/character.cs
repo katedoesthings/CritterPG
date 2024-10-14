@@ -429,8 +429,9 @@ public partial class character : CharacterBody3D
 			}
 			if (nearbyThing.GetParent().IsInGroup("CookingStation"))
 			{
-				cookingManager._TimeToCook(testRecipe);
-			}
+				FreezeAndMouseUsable();
+				cookingManager._PickRecipe();
+            }
 		}
     }
 

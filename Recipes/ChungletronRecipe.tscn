@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddt4rgr1ihc7i"]
+
+[ext_resource type="Script" path="res://scripts/CookingRecipe.cs" id="1_ku4s3"]
+[ext_resource type="PackedScene" uid="uid://dm8iemkx7omrj" path="res://Items/Food/ChungletronItem.tscn" id="2_menwr"]
+
+[node name="BaseRecipe" type="Node"]
+script = ExtResource("1_ku4s3")
+stepsAndOrder = PackedStringArray("chop", "bake", "spice")
+numChop = 1.0
+chopTime = 10.0
+numSpice = 1.0
+spiceMultiplier = 1.0
+spiceThreshold = 70.0
+bakeTime = 3.0
+recipeName = "Chungletron"
+resultItem = ExtResource("2_menwr")

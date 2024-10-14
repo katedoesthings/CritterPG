@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=26 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/fpc/character.cs" id="1_urq53"]
 [ext_resource type="Script" path="res://addons/fpc/DebugPanel.cs" id="2_eciry"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/InventoryManager.cs" id="4_kfrai"]
 [ext_resource type="Texture2D" uid="uid://6856cugjcbnl" path="res://placeholder/greensquare.png" id="4_x226x"]
 [ext_resource type="PackedScene" uid="uid://h4gi2jpmk3wf" path="res://Prefabs/BaseRecipe.tscn" id="5_0w052"]
+[ext_resource type="Texture2D" uid="uid://c4ncgcx2jiulw" path="res://placeholder/apple.jpg" id="5_lewny"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
 albedo_color = Color(0.909804, 0.596078, 0, 1)
@@ -496,7 +497,7 @@ offset_top = 4.0
 offset_right = 903.0
 offset_bottom = 308.0
 
-[node name="CookingUI" type="Control" parent="UserInterface" node_paths=PackedStringArray("cookingTimer", "chopUI", "chopSlider", "spiceUI", "spiceSlider", "bakeUI", "bakeTimer", "chopCountText", "spiceCountText", "chopPerformanceLabel", "spicePerformanceLabel", "spiceThresholdSlider", "bakePerformanceLabel")]
+[node name="CookingUI" type="Control" parent="UserInterface" node_paths=PackedStringArray("cookingTimer", "chopUI", "chopSlider", "spiceUI", "spiceSlider", "bakeUI", "bakeTimer", "chopCountText", "spiceCountText", "chopPerformanceLabel", "spicePerformanceLabel", "spiceThresholdSlider", "bakePerformanceLabel", "recipeList", "resultsLabel", "resultsParent", "inventoryManager", "theCharacter")]
 visible = false
 anchors_preset = 0
 offset_left = 210.0
@@ -517,7 +518,12 @@ chopPerformanceLabel = NodePath("ChopUI/PerformanceLabel")
 spicePerformanceLabel = NodePath("SpiceGrindUI/PerformanceLabel")
 spiceThresholdSlider = NodePath("SpiceGrindUI/SpiceThresholdSlider")
 bakePerformanceLabel = NodePath("BakeUI/PerformanceLabel")
+recipeList = NodePath("RecipeList")
 transitionTime = 3.0
+resultsLabel = NodePath("ResultsParent/FinishedThing")
+resultsParent = NodePath("ResultsParent")
+inventoryManager = NodePath("../../InventoryManager")
+theCharacter = NodePath("../..")
 
 [node name="ChopUI" type="Control" parent="UserInterface/CookingUI"]
 visible = false
@@ -593,7 +599,7 @@ offset_left = 694.0
 offset_top = 64.0
 offset_right = 831.0
 offset_bottom = 104.0
-text = "Hold E to Spice!"
+text = "Hold left click to Spice!"
 
 [node name="PerformanceLabel" type="RichTextLabel" parent="UserInterface/CookingUI/SpiceGrindUI"]
 layout_mode = 0
@@ -661,7 +667,7 @@ offset_left = -34.0
 offset_top = 124.0
 offset_right = 243.0
 offset_bottom = 164.0
-text = "Press E to take it out of the oven!"
+text = "Left click to take it out of the oven!"
 
 [node name="PerformanceLabel" type="RichTextLabel" parent="UserInterface/CookingUI/BakeUI"]
 layout_mode = 0
@@ -672,6 +678,40 @@ offset_bottom = 259.0
 
 [node name="CookingTimer" type="Timer" parent="UserInterface/CookingUI"]
 wait_time = 0.05
+
+[node name="RecipeList" type="ItemList" parent="UserInterface/CookingUI"]
+visible = false
+layout_mode = 0
+offset_left = 124.0
+offset_top = 129.0
+offset_right = 718.0
+offset_bottom = 463.0
+item_count = 2
+fixed_icon_size = Vector2i(25, 25)
+item_0/text = "BakedAppleRecipe.tscn"
+item_0/icon = ExtResource("5_lewny")
+item_1/text = "ChungletronRecipe.tscn"
+item_1/icon = ExtResource("4_x226x")
+
+[node name="ResultsParent" type="Control" parent="UserInterface/CookingUI"]
+visible = false
+anchors_preset = 0
+offset_left = 144.0
+offset_top = 174.0
+offset_right = 184.0
+offset_bottom = 214.0
+
+[node name="FinishedThing" type="RichTextLabel" parent="UserInterface/CookingUI/ResultsParent"]
+layout_mode = 0
+offset_right = 446.0
+offset_bottom = 78.0
+
+[node name="FinishedCookingButton" type="Button" parent="UserInterface/CookingUI/ResultsParent"]
+offset_left = 157.0
+offset_top = 91.0
+offset_right = 261.0
+offset_bottom = 132.0
+text = "Ok!"
 
 [node name="CrouchCeilingDetection" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -696,5 +736,7 @@ itemDescription = NodePath("../UserInterface/InventoryPanel/ItemDescription")
 
 [connection signal="item_selected" from="UserInterface/InventoryPanel/ItemList" to="InventoryManager" method="_on_item_list_item_selected"]
 [connection signal="timeout" from="UserInterface/CookingUI/CookingTimer" to="UserInterface/CookingUI" method="_on_cooking_timer_timeout"]
+[connection signal="item_clicked" from="UserInterface/CookingUI/RecipeList" to="UserInterface/CookingUI" method="_on_recipe_list_item_clicked"]
+[connection signal="button_down" from="UserInterface/CookingUI/ResultsParent/FinishedCookingButton" to="UserInterface/CookingUI" method="_on_finished_cooking_button_button_down"]
 [connection signal="area_entered" from="InteractableFinder" to="." method="_on_interactable_finder_area_entered"]
 [connection signal="area_exited" from="InteractableFinder" to="." method="_on_interactable_finder_area_exited"]

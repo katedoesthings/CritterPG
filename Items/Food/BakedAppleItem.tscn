@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://v73i4ksdtt4c"]
+
+[ext_resource type="Script" path="res://scripts/InventoryItem.cs" id="1_4rag5"]
+[ext_resource type="Texture2D" uid="uid://c4ncgcx2jiulw" path="res://placeholder/apple.jpg" id="2_43fva"]
+
+[node name="BakedAppleItem" type="Node3D"]
+script = ExtResource("1_4rag5")
+name = "Baked Apple"
+desc = "An apple baked with love and care and many kisses."
+icon = ExtResource("2_43fva")
